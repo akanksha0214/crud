@@ -11,8 +11,6 @@ const Blog = require("./model/blog")
 const app = express();
 const PORT = process.env.PORT || 3000;
 
-// const DB_URL = "mongodb+srv://akanksha:aaaa@projectdb.w6coa1d.mongodb.net/node?retryWrites=true&w=majority&appName=ProjectDb";
-// mongoose.connect(DB_URL).then(() => {
 mongoose.connect(process.env.MONGO_URL).then(() => {
     console.log("Db connected");
     app.listen(PORT, () => {
@@ -27,7 +25,10 @@ app.set("views", path.resolve("./view"))
 app.use(express.urlencoded({ extended: true }))
 app.use(cookieParser());
 app.use(checkForAuthenticateCookies("token"))
-app.use(express.static(path.resolve("./public")))
+// app.use(express.static(path.resolve("./public")))
+app.use(express.static(path.join(__dirname, "public")));
+app.use("/uploads", express.static(path.join(__dirname, "public/uploads")));
+
 
 app.use((req, res, next) => {
     res.locals.user = req.user;
