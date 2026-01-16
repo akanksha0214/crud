@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <%- include("./partials/head") %>
+        <title>Signup Page</title>
+
+        <style>
+            body {
+                background: url("https://images.unsplash.com/photo-1486312338219-ce68d2c6f44d?auto=format&fit=crop&w=1600&q=80") center/cover no-repeat;
+                min-height: 100vh;
+                margin: 0;
+                display: flex;
+                flex-direction: column;
+                backdrop-filter: blur(1px);
+            }
+
+            .page-wrapper {
+                flex: 1;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                padding-top: 70px;
+                /* space for navbar */
+                padding-bottom: 40px;
+            }
+
+            .auth-card {
+                background: rgba(255, 255, 255, 0.14);
+                backdrop-filter: blur(12px);
+                border-radius: 18px;
+                padding: 36px;
+                width: 100%;
+                max-width: 400px;
+                color: white;
+                box-shadow: 0px 12px 35px rgba(0, 0, 0, 0.22);
+            }
+
+            .auth-title {
+                font-size: 1.85rem;
+                font-weight: 700;
+                text-align: center;
+                margin-bottom: 24px;
+                letter-spacing: -0.02rem;
+            }
+
+            .form-control {
+                background: rgba(255, 255, 255, 0.22) !important;
+                border: none !important;
+                border-radius: 10px;
+                color: white;
+            }
+
+            .form-control::placeholder {
+                color: rgba(255, 255, 255, 0.75);
+            }
+
+            .btn-auth {
+                border-radius: 10px;
+                font-weight: 600;
+                padding: 10px;
+            }
+
+            .auth-footer {
+                text-align: center;
+                margin-top: 14px;
+                font-size: .9rem;
+                color: rgba(255, 255, 255, 0.85);
+            }
+
+            .auth-footer a {
+                color: #ffeb3b;
+                text-decoration: none;
+            }
+
+            .auth-footer a:hover {
+                text-decoration: underline;
+            }
+        </style>
+</head>
+
+<body>
+
+    <!-- NAVBAR AT TOP -->
+    <%- include("./partials/nav") %>
+
+        <div class="page-wrapper">
+            <form action="/user/signup" method="POST">
+                <div class="auth-card">
+                    <div class="auth-title">Create Your Account</div>
+
+                    <div class="mb-3">
+                        <input type="text" class="form-control" name="first_name" placeholder="First Name" />
+                    </div>
+
+                    <div class="mb-3">
+                        <input type="email" class="form-control" name="email" placeholder="Email" />
+                    </div>
+
+                    <div class="mb-3">
+                        <input type="password" class="form-control" name="password" placeholder="Password" />
+                    </div>
+
+                    <button type="submit" class="btn btn-primary btn-auth w-100">
+                        Sign Up
+                    </button>
+
+                    <div class="auth-footer">
+                        Already have an account? <a href="/user/signin">Sign In</a>
+                    </div>
+                </div>
+            </form>
+        </div>
+
+        <%- include("./partials/script") %>
+</body>
+
+</html>

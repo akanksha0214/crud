@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <%- include("./partials/head") %>
+    <title>Home Page</title>
+
+    <!-- Optional small style tweaks -->
+    <style>
+        .blog-card {
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+            border-radius: 12px;
+            overflow: hidden;
+        }
+
+        .blog-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 8px 22px rgba(0,0,0,0.15);
+        }
+
+        .blog-thumb {
+            height: 180px;
+            object-fit: cover;
+            width: 100%;
+        }
+
+        .blog-title {
+            font-size: 1.1rem;
+            font-weight: 600;
+            min-height: 48px; /* keeps heights consistent */
+        }
+    </style>
+</head>
+
+<body>
+
+    <%- include("./partials/nav") %>
+
+    <div class="container py-5">
+
+        <h2 class="mb-4 fw-semibold text-center">Latest Blogs</h2>
+
+        <div class="row g-4">
+            <% if (blogs && blogs.length > 0) { %>
+                <% blogs.forEach(blog => { %>
+                    <div class="col-12 col-sm-6 col-md-4 col-lg-3 d-flex">
+                        <div class="card blog-card flex-fill">
+                            <img src="<%= blog.coverimg %>" class="blog-thumb" alt="Blog Image">
+                            <div class="card-body d-flex flex-column">
+                                <div class="blog-title mb-3"><%= blog.title %></div>
+                                <a href="/blog/<%= blog._id %>" class="btn btn-primary mt-auto">View More</a>
+                            </div>
+                        </div>
+                    </div>
+                <% }) %>
+            <% } else { %>
+                <p class="text-muted text-center">No blogs found.</p>
+            <% } %>
+        </div>
+    </div>
+
+    <%- include("./partials/script") %>
+</body>
+
+</html>
