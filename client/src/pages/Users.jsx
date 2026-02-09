@@ -16,18 +16,22 @@ const Users = () => {
   const [users, setUsers] = useState([]);
   const [showModal, setShowModal] = useState(false);
   const [editingUser, setEditingUser] = useState(null);
+  const [loading, setLoading] = useState(false);
 
-  // ✅ FETCH USERS ON LOAD
+  // FETCH USERS ON LOAD
   useEffect(() => {
     fetchUsers();
   }, []);
 
   const fetchUsers = async () => {
     try {
+      setLoading(true);
       const res = await getAllUsers();
       setUsers(res.data.data);
     } catch (err) {
       console.error(err);
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -82,7 +86,7 @@ const Users = () => {
         </button>
       </div>
 
-      <UserList users={users} onEdit={openEditModal} onDelete={handleDelete} />
+      <UserList users={users} onEdit={openEditModal}   loading={loading} onDelete={handleDelete} />
 
       <UserForm
         show={showModal}
@@ -90,6 +94,7 @@ const Users = () => {
           setShowModal(false);
           setEditingUser(null);
         }}
+        loading={loading}
         onSubmit={editingUser ? handleUpdate : handleCreate}
         editingUser={editingUser}
       />

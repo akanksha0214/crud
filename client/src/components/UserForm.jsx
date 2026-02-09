@@ -8,7 +8,7 @@ const initialState = {
   phoneNumber: "",
 };
 
-const UserForm = ({ show, onClose, onSubmit, editingUser }) => {
+const UserForm = ({ show, onClose, onSubmit, editingUser, loading }) => {
   const [form, setForm] = useState(initialState);
   const [error, setError] = useState("");
   const modalRef = useRef(null);
@@ -24,7 +24,6 @@ const UserForm = ({ show, onClose, onSubmit, editingUser }) => {
     }
   }, []);
 
-  /* ✅ Open / Close modal */
   useEffect(() => {
     if (!modalInstance.current) return;
 
@@ -62,7 +61,7 @@ const UserForm = ({ show, onClose, onSubmit, editingUser }) => {
     setError("");
 
     try {
-      await onSubmit(form); // ✅ wait for API
+      await onSubmit(form);
       onClose();
     } catch (err) {
       setError("Failed to save user");
@@ -134,10 +133,13 @@ const UserForm = ({ show, onClose, onSubmit, editingUser }) => {
                 type="button"
                 className="btn btn-secondary"
                 onClick={onClose}
+                disabled={loading}
               >
                 Cancel
               </button>
-              <button type="submit" className="btn btn-primary">
+              <button type="submit"
+                disabled={loading}
+                className="btn btn-primary">
                 {editingUser ? "Update" : "Create"}
               </button>
             </div>
